@@ -1,14 +1,18 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
-CREATE TABLE IF NOT EXISTS `users` (
-    `id` int(10) NOT NULL AUTO_INCREMENT,
-    `username` varchar(20) NOT NULL,
-    `password` varchar(20) NOT NULL,
-    `email` varchar(50) NOT NULL,
-    `level` varchar(20) NOT NULL,
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+CREATE TABLE IF NOT EXISTS `pages` (
+	`category` text NOT NULL,
+	`type` text NOT NULL,
+	`parent` text NOT NULL,
+	`html` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=11;
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `level`) VALUES
-(1, 'csanders', 'passoword', 'me@me.com', 'Admin');
+INSERT INTO `pages` (`category`, `type`, `parent`, `html`) VALUES
+('Home', 'Main', 'None', '<section class="home"><h1>HOME</h1></section>'),
+('About', 'Main', 'None', '<section class="home"><h1>About</h1></section>'),
+('Contact', 'Main', 'None', '<section class="home"><h1>Contact</h1></section>'),
+('History', 'Sub', 'About', '<section class="home"><h1>History/h1></section>'),
+('Mission', 'Sub', 'About', '<section class="home"><h1>Mission</h1></section>'),
+('Locations', 'Sub', 'Contact', '<section class="home"><h1>Locations</h1></section>'),
+('Email', 'Sub', 'Contact', '<section class="home"><h1>Email</h1></section>');
