@@ -10,7 +10,7 @@
         echo "<header>";
             while( $row = $result->fetch_assoc() ) {
                 extract($row);
-                echo "<div><a href=''>{$category}</a></div>";
+                echo "<div><a href='base.php?page={$category}'>{$category}</a></div>";
             }
         echo "</header>";
         $result->free();
