@@ -55,6 +55,12 @@ li:hover {
     float: right;
 }
 
+p {
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+}
+
 .right li {
     padding: 10px 20px;
 }
