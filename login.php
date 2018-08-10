@@ -1,4 +1,5 @@
 <?php
+    session_start();
     header("Access-Control-Allow-Origin: *");
 
     include 'dbconfig.php';
@@ -17,16 +18,13 @@
         if( $num_results > 0) {
             $row = $result->fetch_assoc();
             extract($row);
+            $_SESSION["authenticated"] = 'true';
             if ($level === 'Admin') {
-                session_start();
-                $_SESSION["authenticated"] = 'true';
-                $result->free();
-                $mysqli->close();
-                header('Location: admin.php');
+                $_SESSION["admin"] = 'true';
             }
-            else {
-                header('Location: login.php');
-            }
+            $result->free();
+            $mysqli->close();
+            header('Location: admin.php');
         }
         else {
             header('Location: login.php');
