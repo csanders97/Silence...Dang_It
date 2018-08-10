@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if ($_SESSION['admin'] === 'false') {
+        header('Location: base.php?page=Home');
+    } 
+    else {
+        session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -42,3 +50,4 @@
         ?>
     </body>
 </html>
+<?php } ?>
