@@ -12,6 +12,7 @@
                 extract($row);
                 echo "<div><a href='base.php?page={$category}'>{$category}</a></div>";
             }
+            echo "<div><a href='login.php'>Admin Login</a></div>";
         echo "</header>";
         $result->free();
         $mysqli->close();
