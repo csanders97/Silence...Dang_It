@@ -40,23 +40,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" type="text/css" href="theme1.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Hanalei+Fill|Josefin+Slab|Open+Sans|Poiret+One|Ultra" rel="stylesheet">
         <title>CMS - Login</title>
     </head>
     <body>
         <div id="page">
             <header id="banner">
-                <hgroup>
-                    <h1>Login</h1>
-                </hgroup>
+                <h1>Login</h1>
             </header>
             <section id="content">
                 <form id="login" method="post">
                     <label for="username">Username:</label>
-                    <input id="username" name="username" type="text" required>
+                    <input id="username" name="username" type="text" required><br />
                     <label for="password">Password:</label>
                     <input id="password" name="password" type="password" required>
                     <br />
-                    <input type="submit" value="Login">
+                    <input class="login" type="submit" value="Login">
                 </form>
                 <a href="register">Register</a>
             </section>
