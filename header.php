@@ -1,4 +1,5 @@
 <?php
+    session_start();
     header("Access-Control-Allow-Origin: *");
 
     include 'dbconfig.php';
@@ -16,7 +17,12 @@
         echo "<a href='base.php?page={$category}&theme=theme1'><li>Theme 1</li></a>";
         echo "<a href='base.php?page={$category}&theme=theme2'><li>Theme 2</li></a>";
         echo "<a href='base.php?page={$category}&theme=theme3'><li>Theme 3</li></a>";
-        echo "<a href='login.php'><li>Admin Login</li></a>";
+        if ($_SESSION['admin'] === 'true') {
+            echo "<a href='logout.php'><li>Logout</li></a>";
+        }
+        else {
+            echo "<a href='login.php'><li>Login</li></a>";
+        }
         echo "</ul>";
         echo "</header>";
         $result->free();

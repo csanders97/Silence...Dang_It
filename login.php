@@ -1,4 +1,5 @@
 <?php
+    session_start();
     header("Access-Control-Allow-Origin: *");
 
     include 'dbconfig.php';
@@ -18,8 +19,8 @@
             $row = $result->fetch_assoc();
             extract($row);
             if ($level === 'Admin') {
-                session_start();
                 $_SESSION["authenticated"] = 'true';
+                $_SESSION["admin"] = 'true';
                 $result->free();
                 $mysqli->close();
                 header('Location: admin.php');
