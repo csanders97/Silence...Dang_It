@@ -6,18 +6,51 @@
     $header = null;
     $section = null;
 
+    $existingHeader = "";
+    $existingText = "";
+
+    if(isset($_GET['page'])) {
+        $page = $_GET['page'];
+        $sql = "select * from pages where category = '$page'";
+        $result = $mysqli->query( $sql );
+        $num_results = $result->num_rows;
+        if ( $num_results > 0) {
+            $row = $result->fetch_assoc();
+            extract($row);
+            $existingHeader = $category;
+            if (preg_match('/(<p(>|\s+[^>]*>).*?<\/p>)/i', $html, $regs)) {
+                $existingText = $regs[1];
+            } else {
+                $existingText = "";
+            }
+        }
+    }
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $header = $_POST["header"];
         $section = $_POST["newText"];
 
         $newHtml = '<section class="home"><h1>'.$header.'</h1><p>'.$section.'</p></section>';
-        $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Main', 'None', '$newHtml')";
-        if ($mysqli->query($query) === TRUE) {
-            $mysqli->close();
-            header('Location: base.php?page='.$header.'');
-        } else {
-            echo "Error: " . $query . "<br>" . $mysqli->error;
+        if (isset($_GET['page'])) {
+            $page = $_GET['page'];
+            $sql = "Delete from pages where category = '$existingHeader'";
+            $query = "Update pages set category = '$header' AND html = '$newHtml' where category = '$page'";
+            if ($mysqli->query($query) === TRUE) {
+                $mysqli->close();
+                header('Location: base.php?page='.$header.'');
+            } else {
+                echo "Error: " . $query . "<br>" . $mysqli->error;
+            }
+        }
+        else {
+            $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Main', 'None', '$newHtml')";
+            if ($mysqli->query($query) === TRUE) {
+                $mysqli->close();
+                header('Location: base.php?page='.$header.'');
+            } else {
+                echo "Error: " . $query . "<br>" . $mysqli->error;
+            }
         }
     } else {
 ?>
@@ -33,9 +66,9 @@
         <body>
             <form action="edit" method="POST">
                 <label>Header:</label>
-                <input type="text" class="header" name="header" />
+                <input type="text" class="header" name="header" value=<?php echo $existingHeader ?> required />
                 <label>Text:</label>
-                <textarea rows="4" cols="50" type="text" class="newText" name="newText" required></textarea>
+                <textarea rows="4" cols="50" type="text" class="newText" name="newText" value=<?php echo $existingText ?> required></textarea>
                 <input type="submit" value="Submit" />
             </form>
         </body>
