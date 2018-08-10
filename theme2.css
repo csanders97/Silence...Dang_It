@@ -59,6 +59,11 @@ li:hover {
     float: right;
 }
 
+p {
+    text-align: center;
+    padding: 20px;
+}
+
 .right li {
     padding: 10px 20px;
 }
