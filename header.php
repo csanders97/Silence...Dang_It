@@ -16,7 +16,9 @@
         echo "<a href='base.php?page={$category}&theme=theme1'><li>Theme 1</li></a>";
         echo "<a href='base.php?page={$category}&theme=theme2'><li>Theme 2</li></a>";
         echo "<a href='base.php?page={$category}&theme=theme3'><li>Theme 3</li></a>";
-        echo "</ul></header>";
+        echo "</ul>";
+        echo "<div><a href='login.php'>Admin Login</a></div>";
+        echo "</header>";
         $result->free();
         $mysqli->close();
     }

@@ -15,11 +15,18 @@
         $result = $mysqli->query( $query );
         $num_results = $result->num_rows;
         if( $num_results > 0) {
-            session_start();
-            $_SESSION["authenticated"] = 'true';
-            $result->free();
-            $mysqli->close();
-            header('Location: base.php?page=Home');
+            $row = $result->fetch_assoc();
+            extract($row);
+            if ($level === 'Admin') {
+                session_start();
+                $_SESSION["authenticated"] = 'true';
+                $result->free();
+                $mysqli->close();
+                header('Location: admin.php');
+            }
+            else {
+                header('location: login.php');
+            }
         }
         else {
             header('Location: login.php');
