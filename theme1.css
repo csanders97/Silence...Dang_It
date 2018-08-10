@@ -17,6 +17,20 @@ h1 {
     text-align: center;
 }
 
+form {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.login {
+    background-color: #DE5B52;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    margin: 20px;
+}
+
 hr {
     background-color: #2F2F40;
     height: 8px;

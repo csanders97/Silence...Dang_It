@@ -41,6 +41,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" type="text/css" href="theme1.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Hanalei+Fill|Josefin+Slab|Open+Sans|Poiret+One|Ultra" rel="stylesheet">
         <title>CMS - Register</title>
     </head>
     <body>
@@ -53,15 +55,15 @@
             <section id="content">
                 <form id="register" method="post">
                     <label for="username">Username:</label>
-                    <input id="username" name="username" type="text" required>
+                    <input id="username" name="username" type="text" required><br />
                     <label for="email">Email:</label>
-                    <input id="email" name="email" type="text" required>
+                    <input id="email" name="email" type="text" required><br />
                     <label for="password">Password:</label>
-                    <input id="password" name="password" type="password" required>
+                    <input id="password" name="password" type="password" required><br />
                     <label for="re-password">Re-Enter Password:</label>
                     <input id="re-password" name="re-password" type="password" required>
                     <br />
-                    <input type="submit" value="Register">
+                    <input class="login" type="submit" value="Register">
                 </form>
             </section>
             <footer>
