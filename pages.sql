@@ -46,7 +46,7 @@ INSERT INTO `pages` (`id`, `category`, `type`, `parent`, `html`) VALUES
 (1, 'Home', 'Main', 'None', '<section class=\"home\"><h1>HOME</h1><hr /></section>'),
 (2, 'About', 'Main', 'None', '<section class=\"about\"><h1>About</h1><hr/></section>'),
 (3, 'Contact', 'Main', 'None', '<section class=\"contact\"><h1>Contact</h1><hr/></section>'),
-(4, 'History', 'Sub', 'About', '<section class=\"history\"><h1>History/h1></section>'),
+(4, 'History', 'Sub', 'About', '<section class=\"history\"><h1>History</h1></section>'),
 (5, 'Mission', 'Sub', 'About', '<section class=\"mission\"><h1>Mission</h1></section>'),
 (16, 'Locations', 'Sub', 'Contact', '<section class=\"locations\"><h1>Locations</h1></section>'),
 (17, 'Email', 'Sub', 'Contact', '<section class=\"email\"><h1>Email</h1></section>');
