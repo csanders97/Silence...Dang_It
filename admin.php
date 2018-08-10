@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if ($_SESSION['admin'] === 'false') {
+        header('Location: base.php?page=Home');
+    }
+    else {
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,3 +19,4 @@
         <h1>Welcome, Admin</h1>
     </body>
 </html>
+<?php } ?>

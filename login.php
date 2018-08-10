@@ -18,16 +18,13 @@
         if( $num_results > 0) {
             $row = $result->fetch_assoc();
             extract($row);
+            $_SESSION["authenticated"] = 'true';
             if ($level === 'Admin') {
-                $_SESSION["authenticated"] = 'true';
                 $_SESSION["admin"] = 'true';
-                $result->free();
-                $mysqli->close();
-                header('Location: admin.php');
             }
-            else {
-                header('Location: login.php');
-            }
+            $result->free();
+            $mysqli->close();
+            header('Location: admin.php');
         }
         else {
             header('Location: login.php');

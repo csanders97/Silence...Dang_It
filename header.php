@@ -17,8 +17,11 @@
         echo "<a href='base.php?page={$category}&theme=theme1'><li>Theme 1</li></a>";
         echo "<a href='base.php?page={$category}&theme=theme2'><li>Theme 2</li></a>";
         echo "<a href='base.php?page={$category}&theme=theme3'><li>Theme 3</li></a>";
-        if ($_SESSION['admin'] === 'true') {
+        if ($_SESSION['authenticated'] === 'true') {
             echo "<a href='logout.php'><li>Logout</li></a>";
+            if ($_SESSION['admin'] === 'true') {
+                echo "<a href='admin.php'><li>Admin</li></a>";
+            }
         }
         else {
             echo "<a href='login.php'><li>Login</li></a>";
