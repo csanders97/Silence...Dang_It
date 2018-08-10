@@ -8,6 +8,7 @@
         <title>CMS - SILENCE</title>
     </head>
     <body>
+        <?php include 'header.php' ?>
         <h1>Welcome, Admin</h1>
     </body>
 </html>

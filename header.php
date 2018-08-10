@@ -12,7 +12,12 @@
                 extract($row);
                 echo "<div><a href='base.php?page={$category}'>{$category}</a></div>";
             }
-            echo "<div><a href='login.php'>Admin Login</a></div>";
+            // if ($_SESSION["authenticated"]) {
+            //     echo "<div><a href='logout.php'>Logout</a></div>";
+            // }
+            // else if (empty($_SESSION["authenticated"]) || $_SESSION["authenticated"] != 'true') {
+            //     echo "<div><a href='login.php'>Admin Login</a></div>";
+            // }
         echo "</header>";
         $result->free();
         $mysqli->close();
