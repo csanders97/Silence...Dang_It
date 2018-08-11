@@ -36,16 +36,17 @@
                         echo "<a class='editBtn' href='delete.php?page={$category}'>Delete &#10008;</a>";
                     }
                     echo "</div>";
+                    $parentVar = $category;
                     $getSubContent = "select * from pages where parent = '$category'";
                     $subResult = $mysqli->query( $getSubContent );
                     $num_sub = $subResult->num_rows;
                     if( $num_sub > 0) {
                         while( $row = $subResult->fetch_assoc() ) {
                             extract($row);
-                            echo "<div class='subcat'><span>&#9866;</span>{$category}<a class='editBtn' href='edit.php?page={$category}'>Edit &#10000;</a></div>";
+                            echo "<div class='subcat'><span>&#9866;</span>{$category}<a class='editBtn' href='edit.php?page={$category}'>Edit &#10000;</a><a class='editBtn' href='delete.php?page={$category}'>Delete &#10008;</a></div>";
                         }
                     }
-                    echo "<a class='editBtn' href='edit.php?parent={$category}'>Add Sub-Section &#10010;</a></div>";
+                    echo "<a class='editBtn' href='edit.php?parent={$parentVar}'>Add Sub-Section &#10010;</a></div>";
                 }
                 echo "<div><a class='editBtn' href='edit.php'>Add Section &#10010;</a></div>";
                 $result->free();

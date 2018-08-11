@@ -48,12 +48,9 @@
                         while( $row = $newResult->fetch_assoc() ) {
                             extract($row);
                             if ($parent === 'None') {
-                                // echo 'Name: '.$header.'<br/>';
-                                // echo 'New html: '.$newHtml;
                                 header('Location: base.php?page='.$header.'');
                             } else {
-                                echo 'Parent: '.$parent;
-                                //header('Location: base.php?page='.$parent.'');
+                                header('Location: base.php?page='.$parent.'');
                             }
                         }
                         $mysqli->close();
@@ -63,7 +60,15 @@
                 echo "Error: ".$query."<br>".$mysqli->error;
             }
         } else if ($_POST['parentVar'] != '/') {
-            echo $POST['parentVar'];
+            //echo $POST['parentVar'];
+            $parent = $_POST['parentVar'];
+            $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Sub', '$parent', '$newHtml')";
+            if ($mysqli->query($query) === TRUE) {
+                header('Location: base.php?page='.$parent.'');
+                $mysqli->close();
+            } else {
+                echo "Error: " . $query . "<br>" . $mysqli->error;
+            }
         } else {
             $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Main', 'None', '$newHtml')";
             if ($mysqli->query($query) === TRUE) {
