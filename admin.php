@@ -2,8 +2,7 @@
     session_start();
     if ($_SESSION['admin'] === 'false') {
         header('Location: base.php?page=Home');
-    }
-    else {
+    } else {
         session_destroy();
 ?>
 <!DOCTYPE html>
@@ -31,19 +30,19 @@
             if( $num_results > 0) {
                 while( $row = $result->fetch_assoc() ) {
                     extract($row);
-                    echo "<div class='main'>{$category}<a class='editBtn' href='edit.php?page='$category''>Edit &#10000;</a></div>";
+                    echo "<div class='main'>{$category}<a class='editBtn' href='edit.php?page={$category}'>Edit &#10000;</a></div>";
                     $getSubContent = "select * from pages where parent = '$category'";
                     $subResult = $mysqli->query( $getSubContent );
                     $num_sub = $subResult->num_rows;
                     if( $num_sub > 0) {
                         while( $row = $subResult->fetch_assoc() ) {
                             extract($row);
-                            echo "<div class='subcat'><span>&#9866;</span>{$html}<a class='editBtn' href='edit.php?page='$category''>Edit &#10000;</a></div>";
+                            echo "<div class='subcat'><span>&#9866;</span>{$category}<a class='editBtn' href='edit.php?page={$category}'>Edit &#10000;</a></div>";
                         }
                     }
-                    echo "<a class='editBtn' href='edit.php?parent='$category''>Add Sub-Section &#10010;</a></div>";
+                    echo "<a class='editBtn' href='edit.php?parent={$category}'>Add Sub-Section &#10010;</a></div>";
                 }
-                echo "<a class='editBtn' href='edit.php'>Add Section &#10010;</a></div>";
+                echo "<div><a class='editBtn' href='edit.php'>Add Section &#10010;</a></div>";
                 $result->free();
                 $mysqli->close();
             }
