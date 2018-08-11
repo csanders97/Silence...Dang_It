@@ -91,8 +91,8 @@
         <body>
             <?php include 'header.php' ?>
             <form action="edit" method="POST">
-                <input type="test" name="pageVar" value=<?php echo $pageVariable ?> />
-                <input type="test" name="parentVar" value=<?php echo $parentVariable ?> />
+                <input type="test" name="pageVar" style="display:none" value=<?php echo $pageVariable ?> />
+                <input type="test" name="parentVar" style="display:none" value=<?php echo $parentVariable ?> />
                 <label>Header:</label>
                 <input type="text" class="header" name="header" value=<?php echo $existingHeader ?> required />
                 <label>Text:</label>
