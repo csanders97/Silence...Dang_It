@@ -13,6 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" type="text/css" href="theme1.css"/>
         <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Hanalei+Fill|Josefin+Slab|Open+Sans|Poiret+One|Ultra" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>CMS - SILENCE</title>
     </head>
     <body>
@@ -30,7 +31,11 @@
             if( $num_results > 0) {
                 while( $row = $result->fetch_assoc() ) {
                     extract($row);
-                    echo "<div class='main'>{$category}<a class='editBtn' href='edit.php?page={$category}'>Edit &#10000;</a></div>";
+                    echo "<div class='main'>{$category}<a class='editBtn' href='edit.php?page={$category}'>Edit &#10000;</a>";
+                    if ($category != "Home") {
+                        echo "<a class='editBtn' href='delete.php?page={$category}'>Delete &#10008;</a>";
+                    }
+                    echo "</div>";
                     $getSubContent = "select * from pages where parent = '$category'";
                     $subResult = $mysqli->query( $getSubContent );
                     $num_sub = $subResult->num_rows;
