@@ -6,11 +6,14 @@
 
     $header = null;
     $section = null;
+    $pageVariable = null;
+    $parentVariable = null;
 
     $existingHeader = "";
     $existingText = "";
 
     if(isset($_GET['page'])) {
+        $pageVariable = $_GET['page'];
         $page = $_GET['page'];
         $sql = "select * from pages where category = '$page'";
         $result = $mysqli->query( $sql );
@@ -19,37 +22,49 @@
             $row = $result->fetch_assoc();
             extract($row);
             $existingHeader = $category;
-            if (preg_match('/(<p(>|\s+[^>]*>).*?<\/p>)/i', $html, $regs)) {
-                $existingText = $regs[1];
+            if (preg_match('/(<p>)(.*)(<\/p>)/', $html, $regs)) {
+                $existingText = $regs[2];
             } else {
                 $existingText = "";
             }
         }
+    } else if (isset($_GET['parent'])) {
+        $parentVariable = $_GET['parent'];
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $header = $_POST["header"];
         $section = $_POST["newText"];
 
-        $newHtml = "<section class='".$header."'><h1>".$header.'</h1><p>'.$section.'</p></section>';
-        if (isset($_GET['page'])) {
-            $page = $_GET['page'];
-            //$sql = "DELETE FROM pages WHERE category = '$existingHeader'";
-            //unsure if needed, not shown in demo
-            $query = "UPDATE pages SET category = '$header' AND html = '$newHtml' WHERE category = '$page'";
+        $newHtml = "<section class=".$header."><h1>".$header.'</h1><p>'.$section.'</p></section>';
+        if ($_POST['pageVar'] != '/') {
+            $page = $_POST['pageVar'];
+            $query = "UPDATE pages SET category = '$header', html = '$newHtml' WHERE category = '$page'";
             if ($mysqli->query($query) === TRUE) {
-                if ($parent === 'None') {
-                    header('Location: base.php?page='.$header.'');
-                } else {
-                    header('Location: base.php?page='.$parent.'');
+                if ($mysqli->query("SELECT * FROM pages WHERE category='$page'")) {
+                    $newResult = $mysqli->query("SELECT * FROM pages WHERE category='$page'");
+                    $new_num = $newResult->num_rows;
+                    if ($new_num > 0) {
+                        while( $row = $newResult->fetch_assoc() ) {
+                            extract($row);
+                            if ($parent === 'None') {
+                                // echo 'Name: '.$header.'<br/>';
+                                // echo 'New html: '.$newHtml;
+                                header('Location: base.php?page='.$header.'');
+                            } else {
+                                echo 'Parent: '.$parent;
+                                //header('Location: base.php?page='.$parent.'');
+                            }
+                        }
+                        $mysqli->close();
+                    }
                 }
-                $mysqli->close();
             } else {
                 echo "Error: ".$query."<br>".$mysqli->error;
             }
-        }
-        //need an else if for parent, this is creation of a new subsection
-        else {
+        } else if ($_POST['parentVar'] != '/') {
+            echo $POST['parentVar'];
+        } else {
             $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Main', 'None', '$newHtml')";
             if ($mysqli->query($query) === TRUE) {
                 header('Location: base.php?page='.$header.'');
@@ -71,10 +86,12 @@
         <body>
             <?php include 'header.php' ?>
             <form action="edit" method="POST">
+                <input type="test" name="pageVar" value=<?php echo $pageVariable ?> />
+                <input type="test" name="parentVar" value=<?php echo $parentVariable ?> />
                 <label>Header:</label>
                 <input type="text" class="header" name="header" value=<?php echo $existingHeader ?> required />
                 <label>Text:</label>
-                <textarea rows="4" cols="50" type="text" class="newText" name="newText" value=<?php echo $existingText ?> required></textarea>
+                <textarea rows="4" cols="50" type="text" class="newText" name="newText" required><?php echo $existingText ?></textarea>
                 <input type="submit" value="Submit" />
             </form>
             <footer>
