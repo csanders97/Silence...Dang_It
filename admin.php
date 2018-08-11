@@ -2,7 +2,7 @@
     session_start();
     if ($_SESSION['admin'] === 'false') {
         header('Location: base.php?page=Home');
-    } 
+    }
     else {
         session_destroy();
 ?>
@@ -31,7 +31,7 @@
             if( $num_results > 0) {
                 while( $row = $result->fetch_assoc() ) {
                     extract($row);
-                    echo "<div class='main'>{$html}<a class='editBtn' href='edit.php?page='$category''>Edit &#10000;</a></div>";
+                    echo "<div class='main'>{$category}<a class='editBtn' href='edit.php?page='$category''>Edit &#10000;</a></div>";
                     $getSubContent = "select * from pages where parent = '$category'";
                     $subResult = $mysqli->query( $getSubContent );
                     $num_sub = $subResult->num_rows;
@@ -48,6 +48,9 @@
                 $mysqli->close();
             }
         ?>
+        <footer>
+            <summary>Copyright 2018 &emsp; || &emsp; Silence... Dang It&trade;. All Rights Reserved.</summary>
+        </footer>
     </body>
 </html>
 <?php } ?>
