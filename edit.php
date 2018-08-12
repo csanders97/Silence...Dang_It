@@ -36,7 +36,7 @@
         $header = $_POST["header"];
         $section = $_POST["newText"];
 
-        $newHtml = "<section class=".$header."><h1>".$header.'</h1><p>'.$section.'</p></section>';
+        $newHtml = "<section class=".$header."><h1>".$header.'</h1><hr/><p>'.$section.'</p></section>';
         if ($_POST['pageVar'] != '/') {
             $page = $_POST['pageVar'];
             $query = "UPDATE pages SET category = '$header', html = '$newHtml' WHERE category = '$page'";
