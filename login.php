@@ -1,7 +1,5 @@
 <?php
     session_start();
-    header("Access-Control-Allow-Origin: *");
-
     include 'dbconfig.php';
 
     $username = null;
@@ -18,9 +16,9 @@
         if( $num_results > 0) {
             $row = $result->fetch_assoc();
             extract($row);
-            $_SESSION["authenticated"] = 'true';
+            $_SESSION['authenticated'] = 'true';
             if ($level === 'Admin') {
-                $_SESSION["admin"] = 'true';
+                $_SESSION['admin'] = 'true';
             }
             $result->free();
             $mysqli->close();

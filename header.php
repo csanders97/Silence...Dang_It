@@ -1,7 +1,5 @@
 <?php
     session_start();
-    header("Access-Control-Allow-Origin: *");
-
     include 'dbconfig.php';
 
     $getHeader = "select * from pages where parent = 'None'";

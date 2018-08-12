@@ -1,11 +1,3 @@
-<?php
-    session_start();
-    if ($_SESSION['admin'] === 'false') {
-        header('Location: base.php?page=Home');
-    } 
-    else {
-        session_destroy();
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,8 +13,6 @@
         <h1>Welcome, Admin</h1>
         <h3>Current Page Hierarchy</h3>
         <?php
-            header("Access-Control-Allow-Origin: *");
-
             include 'dbconfig.php';
 
             $getContent = "select * from pages where parent='None'";
@@ -50,4 +40,3 @@
         ?>
     </body>
 </html>
-<?php } ?>
