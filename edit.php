@@ -6,11 +6,14 @@
 
     $header = null;
     $section = null;
+    $pageVariable = null;
+    $parentVariable = null;
 
     $existingHeader = "";
     $existingText = "";
 
     if(isset($_GET['page'])) {
+        $pageVariable = $_GET['page'];
         $page = $_GET['page'];
         $sql = "select * from pages where category = '$page'";
         $result = $mysqli->query( $sql );
@@ -19,36 +22,58 @@
             $row = $result->fetch_assoc();
             extract($row);
             $existingHeader = $category;
-            if (preg_match('/(<p(>|\s+[^>]*>).*?<\/p>)/i', $html, $regs)) {
-                $existingText = $regs[1];
+            if (preg_match('/(<p>)(.*)(<\/p>)/', $html, $regs)) {
+                $existingText = $regs[2];
             } else {
                 $existingText = "";
             }
         }
+    } else if (isset($_GET['parent'])) {
+        $parentVariable = $_GET['parent'];
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
         $header = $_POST["header"];
         $section = $_POST["newText"];
 
-        $newHtml = '<section class="home"><h1>'.$header.'</h1><p>'.$section.'</p></section>';
-        if (isset($_GET['page'])) {
-            $page = $_GET['page'];
-            $sql = "Delete from pages where category = '$existingHeader'";
-            $query = "Update pages set category = '$header' AND html = '$newHtml' where category = '$page'";
+        $newHtml = "<section class=".$header."><h1>".$header.'</h1><p>'.$section.'</p></section>';
+        if ($_POST['pageVar'] != '/') {
+            $page = $_POST['pageVar'];
+            $query = "UPDATE pages SET category = '$header', html = '$newHtml' WHERE category = '$page'";
             if ($mysqli->query($query) === TRUE) {
+                if ($mysqli->query("SELECT * FROM pages WHERE category='$page'")) {
+                    $newResult = $mysqli->query("SELECT * FROM pages WHERE category='$page'");
+                    $new_num = $newResult->num_rows;
+                    if ($new_num > 0) {
+                        while( $row = $newResult->fetch_assoc() ) {
+                            extract($row);
+                            if ($parent === 'None') {
+                                header('Location: base.php?page='.$header.'');
+                            } else {
+                                header('Location: base.php?page='.$parent.'');
+                            }
+                        }
+                        $mysqli->close();
+                    }
+                }
+            } else {
+                echo "Error: ".$query."<br>".$mysqli->error;
+            }
+        } else if ($_POST['parentVar'] != '/') {
+            //echo $POST['parentVar'];
+            $parent = $_POST['parentVar'];
+            $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Sub', '$parent', '$newHtml')";
+            if ($mysqli->query($query) === TRUE) {
+                header('Location: base.php?page='.$parent.'');
                 $mysqli->close();
-                header('Location: base.php?page='.$header.'');
             } else {
                 echo "Error: " . $query . "<br>" . $mysqli->error;
             }
-        }
-        else {
+        } else {
             $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Main', 'None', '$newHtml')";
             if ($mysqli->query($query) === TRUE) {
-                $mysqli->close();
                 header('Location: base.php?page='.$header.'');
+                $mysqli->close();
             } else {
                 echo "Error: " . $query . "<br>" . $mysqli->error;
             }
@@ -61,17 +86,22 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>Create
-            </title>
+            <title>CMS - SILENCE</title>
         </head>
         <body>
+            <?php include 'header.php' ?>
             <form action="edit" method="POST">
+                <input type="test" name="pageVar" style="display:none" value=<?php echo $pageVariable ?> />
+                <input type="test" name="parentVar" style="display:none" value=<?php echo $parentVariable ?> />
                 <label>Header:</label>
                 <input type="text" class="header" name="header" value=<?php echo $existingHeader ?> required />
                 <label>Text:</label>
-                <textarea rows="4" cols="50" type="text" class="newText" name="newText" value=<?php echo $existingText ?> required></textarea>
+                <textarea rows="4" cols="50" type="text" class="newText" name="newText" required><?php echo $existingText ?></textarea>
                 <input type="submit" value="Submit" />
             </form>
+            <footer>
+                <summary>Copyright 2018 &emsp; || &emsp; Silence... Dang It&trade;. All Rights Reserved.</summary>
+            </footer>
         </body>
     </html>
 <?php } ?>
