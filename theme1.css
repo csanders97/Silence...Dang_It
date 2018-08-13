@@ -30,13 +30,18 @@ form {
     text-align: center;
 }
 
-.login {
+.login, .register {
     background-color: #DE5B52;
     border-radius: 5px;
     padding: 10px 20px;
     color: white;
     border: none;
     margin: 20px;
+}
+
+.register {
+    width: 100px;
+    text-align: center;
 }
 
 hr {
@@ -91,6 +96,21 @@ p {
     border: 2px solid #2F2F40;
     color: black;
     font-size: 20px;
+    margin: 10px;
+    padding: 5px 10px;
+}
+
+.main, .subcat, .btn {
+    padding: 20px 0px;
+}
+
+.main {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.adminPg {
+    border: solid 1px red;
 }
 
 footer {

@@ -13,7 +13,7 @@ header {
 
 h1 {
     font-family: 'Ultra', serif;
-    font-size: 50px;
+    font-size: 35px;
     text-align: center;
     color: #DEC05A;
 }
@@ -23,6 +23,7 @@ hr {
     border: none;
     border-radius: 10px;
     border-style: dotted;
+    width: 50%;
 }
 
 ul {
@@ -39,7 +40,7 @@ li {
     display: inline-block;
     height: 100%;
     background-color: rgba(0,0,0,.1);
-    padding: 30px 60px 27px 60px;
+    padding: 30px 40px 30px 40px;
     font-size: 20px;
     border-radius: 20px;
     margin-right: 10px;
@@ -47,8 +48,6 @@ li {
 
 li:hover {
     background-color: #DEC05A;
-    border-bottom: 5px solid #DEC05A;
-    padding: 30px 60px 22px 60px;
 }
 
 .right {

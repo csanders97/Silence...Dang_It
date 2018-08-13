@@ -54,7 +54,7 @@
                     <br />
                     <input class="login" type="submit" value="Login">
                 </form>
-                <a href="register">Register</a>
+                <div class="register"><a href="register">Register</a></div>
             </section>
             <footer>
                 <summary>Copyright 2018 &emsp; || &emsp; Silence... Dang It&trade;. All Rights Reserved.</summary>
