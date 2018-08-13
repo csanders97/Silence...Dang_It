@@ -11,6 +11,14 @@ header {
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
 }
 
+section {
+    background-color: #ccc;
+    padding-top: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 10px;
+}
+
 h1 {
     font-family: 'Hanalei Fill', cursive;
     font-size: 50px;
@@ -52,14 +60,12 @@ li {
     display: inline-block;
     height: 100%;
     background-color: rgba(0,0,0,.1);
-    padding: 30px 60px 27px 60px;
+    padding: 20px 40px 17px 40px;
     font-size: 20px;
 }
 
 li:hover {
     background-color: #DE5B52;
-    border-bottom: 5px solid #DE5B52;
-    padding: 30px 60px 22px 60px;
 }
 
 .right {
