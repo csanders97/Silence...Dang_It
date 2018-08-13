@@ -1,7 +1,5 @@
 <?php
     session_start();
-    header("Access-Control-Allow-Origin: *");
-
     include 'dbconfig.php';
 
     $header = null;
@@ -32,53 +30,56 @@
         $parentVariable = $_GET['parent'];
     }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $header = $_POST["header"];
-        $section = $_POST["newText"];
+    if ($_SESSION['admin'] === 'false') {
+        header('Location: base.php?page=Home');
+    } else {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $header = $_POST["header"];
+            $section = $_POST["newText"];
 
-        $newHtml = "<section class=".$header."><h1>".$header.'</h1><hr/><p>'.$section.'</p></section>';
-        if ($_POST['pageVar'] != '/') {
-            $page = $_POST['pageVar'];
-            $query = "UPDATE pages SET category = '$header', html = '$newHtml' WHERE category = '$page'";
-            if ($mysqli->query($query) === TRUE) {
-                if ($mysqli->query("SELECT * FROM pages WHERE category='$page'")) {
-                    $newResult = $mysqli->query("SELECT * FROM pages WHERE category='$page'");
-                    $new_num = $newResult->num_rows;
-                    if ($new_num > 0) {
-                        while( $row = $newResult->fetch_assoc() ) {
-                            extract($row);
-                            if ($parent === 'None') {
-                                header('Location: base.php?page='.$header.'');
-                            } else {
-                                header('Location: base.php?page='.$parent.'');
+            $newHtml = "<section class=".$header."><h1>".$header.'</h1><hr/><p>'.$section.'</p></section>';
+            if ($_POST['pageVar'] != '/') {
+                $page = $_POST['pageVar'];
+                $query = "UPDATE pages SET category = '$header', html = '$newHtml' WHERE category = '$page'";
+                if ($mysqli->query($query) === TRUE) {
+                    if ($mysqli->query("SELECT * FROM pages WHERE category='$page'")) {
+                        $newResult = $mysqli->query("SELECT * FROM pages WHERE category='$page'");
+                        $new_num = $newResult->num_rows;
+                        if ($new_num > 0) {
+                            while( $row = $newResult->fetch_assoc() ) {
+                                extract($row);
+                                if ($parent === 'None') {
+                                    header('Location: base.php?page='.$header.'');
+                                } else {
+                                    header('Location: base.php?page='.$parent.'');
+                                }
                             }
+                            $mysqli->close();
                         }
-                        $mysqli->close();
                     }
+                } else {
+                    echo "Error: ".$query."<br>".$mysqli->error;
+                }
+            } else if ($_POST['parentVar'] != '/') {
+                //echo $POST['parentVar'];
+                $parent = $_POST['parentVar'];
+                $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Sub', '$parent', '$newHtml')";
+                if ($mysqli->query($query) === TRUE) {
+                    header('Location: base.php?page='.$parent.'');
+                    $mysqli->close();
+                } else {
+                    echo "Error: " . $query . "<br>" . $mysqli->error;
                 }
             } else {
-                echo "Error: ".$query."<br>".$mysqli->error;
-            }
-        } else if ($_POST['parentVar'] != '/') {
-            //echo $POST['parentVar'];
-            $parent = $_POST['parentVar'];
-            $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Sub', '$parent', '$newHtml')";
-            if ($mysqli->query($query) === TRUE) {
-                header('Location: base.php?page='.$parent.'');
-                $mysqli->close();
-            } else {
-                echo "Error: " . $query . "<br>" . $mysqli->error;
+                $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Main', 'None', '$newHtml')";
+                if ($mysqli->query($query) === TRUE) {
+                    header('Location: base.php?page='.$header.'');
+                    $mysqli->close();
+                } else {
+                    echo "Error: " . $query . "<br>" . $mysqli->error;
+                }
             }
         } else {
-            $query = "INSERT INTO pages (`category`, `type`, `parent`, `html`) VALUES ('$header', 'Main', 'None', '$newHtml')";
-            if ($mysqli->query($query) === TRUE) {
-                header('Location: base.php?page='.$header.'');
-                $mysqli->close();
-            } else {
-                echo "Error: " . $query . "<br>" . $mysqli->error;
-            }
-        }
-    } else {
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -91,12 +92,10 @@
         <body>
             <?php include 'header.php' ?>
             <form action="edit" method="POST">
-                <input type="test" name="pageVar" style="display:none" value=<?php echo $pageVariable ?> />
-                <input type="test" name="parentVar" style="display:none" value=<?php echo $parentVariable ?> />
                 <label>Header:</label>
-                <input type="text" class="header" name="header" value=<?php echo $existingHeader ?> required />
+                <input type="text" class="header" name="header" value="<?php echo $existingHeader ?>" required />
                 <label>Text:</label>
-                <textarea rows="4" cols="50" type="text" class="newText" name="newText" required><?php echo $existingText ?></textarea>
+                <textarea rows="4" cols="50" type="text" class="newText" name="newText"><?php echo $existingText ?></textarea>
                 <input type="submit" value="Submit" />
             </form>
             <footer>
@@ -104,4 +103,5 @@
             </footer>
         </body>
     </html>
-<?php } ?>
+<?php } 
+} ?>

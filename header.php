@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include 'dbconfig.php';
 
     $getHeader = "select * from pages where parent = 'None'";
