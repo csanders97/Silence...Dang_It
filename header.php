@@ -1,7 +1,12 @@
 <?php
     include 'dbconfig.php';
 
-   $theme = $_GET['theme'];
+    if (isset($_GET['theme'])) {
+        $theme = $_GET['theme'];
+    }
+    else {
+        $theme = 'theme1';
+    }
     $getHeader = "select * from pages where parent = 'None'";
     $result = $mysqli->query( $getHeader );
     $num_results = $result->num_rows;
