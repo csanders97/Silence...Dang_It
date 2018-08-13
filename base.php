@@ -12,7 +12,7 @@
                 $themeQ = "theme1";
             }
         ?>
-        <link rel="stylesheet" type="text/css" href=<?php echo $themeQ ?> + ".css"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo $themeQ ?>" + ".css"/>
         <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Hanalei+Fill|Josefin+Slab|Open+Sans|Poiret+One|Ultra" rel="stylesheet">
         <title>CMS - SILENCE</title>
     </head>

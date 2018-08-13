@@ -1,6 +1,12 @@
 <?php
     include 'dbconfig.php';
 
+    if (isset($_GET['theme'])) {
+        $theme = $_GET['theme'];
+    }
+    else {
+        $theme = 'theme1';
+    }
     $getHeader = "select * from pages where parent = 'None'";
     $result = $mysqli->query( $getHeader );
     $num_results = $result->num_rows;
@@ -8,7 +14,7 @@
         echo "<header><ul>";
             while( $row = $result->fetch_assoc() ) {
                 extract($row);
-                echo "<a href='base.php?page={$category}'><li>{$category}</li></a>";
+                echo "<a href='base.php?page={$category}&theme={$theme}'><li>{$category}</li></a>";
             }
         echo "</ul><ul class='right'>";
         echo "<a href='base.php?page={$category}&theme=theme1'><li>Theme 1</li></a>";
