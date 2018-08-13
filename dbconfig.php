@@ -2,7 +2,7 @@
     //set connection variables
 
     $host = "localhost";
-    $username = "Justine";
+    $username = "caleb";
     $password = "pass";
     $db_name = "cms"; //database name
     //connect to mysql server

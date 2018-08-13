@@ -3,7 +3,6 @@
     if ($_SESSION['admin'] === 'false') {
         header('Location: base.php?page=Home');
     } else {
-        session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,3 +55,4 @@
         </footer>
     </body>
 </html>
+<?php } ?>

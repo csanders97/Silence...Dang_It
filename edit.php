@@ -1,7 +1,5 @@
 <?php
     session_start();
-    header("Access-Control-Allow-Origin: *");
-
     include 'dbconfig.php';
 
     $header = null;
@@ -91,12 +89,10 @@
         <body>
             <?php include 'header.php' ?>
             <form action="edit" method="POST">
-                <input type="test" name="pageVar" style="display:none" value=<?php echo $pageVariable ?> />
-                <input type="test" name="parentVar" style="display:none" value=<?php echo $parentVariable ?> />
                 <label>Header:</label>
-                <input type="text" class="header" name="header" value=<?php echo $existingHeader ?> required />
+                <input type="text" class="header" name="header" value="<?php echo $existingHeader ?>" required />
                 <label>Text:</label>
-                <textarea rows="4" cols="50" type="text" class="newText" name="newText" required><?php echo $existingText ?></textarea>
+                <textarea rows="4" cols="50" type="text" class="newText" name="newText"><?php echo $existingText ?></textarea>
                 <input type="submit" value="Submit" />
             </form>
             <footer>
