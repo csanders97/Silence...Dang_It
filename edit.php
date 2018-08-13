@@ -87,16 +87,17 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link rel="stylesheet" type="text/css" href="theme1.css"/>
             <title>CMS - SILENCE</title>
         </head>
         <body>
             <?php include 'header.php' ?>
             <form action="edit" method="POST">
                 <label>Header:</label>
-                <input type="text" class="header" name="header" value="<?php echo $existingHeader ?>" required />
+                <input type="text" class="header" name="header" value="<?php echo $existingHeader ?>" required /><br />
                 <label>Text:</label>
-                <textarea rows="4" cols="50" type="text" class="newText" name="newText"><?php echo $existingText ?></textarea>
-                <input type="submit" value="Submit" />
+                <textarea rows="4" cols="50" type="text" class="newText" name="newText"><?php echo $existingText ?></textarea><br />
+                <input class="submit" type="submit" value="Submit" />
             </form>
             <footer>
                 <summary>Copyright 2018 &emsp; || &emsp; Silence... Dang It&trade;. All Rights Reserved.</summary>
