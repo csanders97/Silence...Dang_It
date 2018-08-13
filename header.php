@@ -1,12 +1,7 @@
 <?php
     include 'dbconfig.php';
 
-    if (isset($_GET['theme'])) {
-        $theme = $_GET['theme'];
-    }
-    else {
-        $theme = 'theme1';
-    }
+   $theme = $_GET['theme'];
     $getHeader = "select * from pages where parent = 'None'";
     $result = $mysqli->query( $getHeader );
     $num_results = $result->num_rows;
@@ -21,7 +16,7 @@
         echo "<a href='base.php?page={$category}&theme=theme2'><li>Theme 2</li></a>";
         echo "<a href='base.php?page={$category}&theme=theme3'><li>Theme 3</li></a>";
         if ($_SESSION['authenticated'] === 'true') {
-            echo "<a href='logout.php'><li>Logout</li></a>";
+            echo "<a href='logout.php?theme={$theme}'><li>Logout</li></a>";
             if ($_SESSION['admin'] === 'true') {
                 echo "<a href='admin.php'><li>Admin</li></a>";
             }
