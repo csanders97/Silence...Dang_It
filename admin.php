@@ -17,7 +17,7 @@
     </head>
     <body>
         <?php include 'header.php' ?>
-        <h1>Welcome, Admin</h1>
+        <h1 style="margin-top: 10px;">Welcome, Admin</h1>
         <h3>Current Page Hierarchy</h3>
         <?php
             include 'dbconfig.php';
@@ -43,9 +43,9 @@
                             echo "<div class='subcat'><span>&#9866;</span>{$category}<a class='editBtn' href='edit.php?page={$category}'>Edit &#10000;</a><a class='editBtn' href='delete.php?page={$category}'>Delete &#10008;</a></div>";
                         }
                     }
-                    echo "<a class='editBtn' href='edit.php?parent={$parentVar}'>Add Sub-Section &#10010;</a></div>";
+                    echo "<a class='editBtn' href='edit.php?parent={$parentVar}'>Add Sub-Section &#10010;</a>";
                 }
-                echo "<div><a class='editBtn' href='edit.php'>Add Section &#10010;</a></div>";
+                echo "<div class='btn'><a class='editBtn' href='edit.php'>Add Section &#10010;</a></div>";
                 $result->free();
                 $mysqli->close();
             }
